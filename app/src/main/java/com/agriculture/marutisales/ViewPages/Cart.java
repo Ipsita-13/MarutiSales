@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agriculture.marutisales.Adapters.Cart_Adapter;
@@ -35,6 +36,8 @@ import java.util.Set;
 public class Cart extends AppCompatActivity {
 
     FirebaseDatabase fd;
+    double total_price;
+    TextView total;
     DatabaseReference dr;
     String clicked="False";
     ArrayList<Cart_class> list;
@@ -45,6 +48,7 @@ public class Cart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         rv=findViewById(R.id.arrangement);
+        total=findViewById(R.id.total);
         SharedPreferences sp= getSharedPreferences("Login", Context.MODE_PRIVATE);
         SharedPreferences mp=getSharedPreferences("cart_detail",MODE_PRIVATE);
         String email=sp.getString("email","");
@@ -84,9 +88,11 @@ dr.child(get_phone).addValueEventListener(new ValueEventListener() {
             Log.d("name",snap.child("name").getValue().toString());
             cc.setImage(snap.child("image").getValue().toString());
             cc.setName(snap.child("name").getValue().toString());
+            total_price=total_price+Double.parseDouble(snap.child("price").getValue().toString());
             cc.setPrice(snap.child("price").getValue().toString());
             list.add(cc);
         }
+        total.setText(String.valueOf((int) total_price));
         Collections.reverse(list);
         recycleradap=new Cart_Adapter(list,getApplicationContext());
         rv.setAdapter(recycleradap);
