@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.agriculture.marutisales'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.agriculture.marutisales"
+        minSdk 26
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.3'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl
+    implementation group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
+
+    implementation 'com.loopj.android:android-async-http:1.4.10'
+
+    // https://mvnrepository.com/artifact/org.apache.poi/poi
+
+    implementation 'org.apache.poi:poi:5.2.2'
+   implementation ('org.apache.poi:poi-ooxml:5.2.2')
+
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+//for gmail
+    implementation 'com.sun.mail:android-mail:1.5.6'
+    implementation 'com.sun.mail:android-activation:1.5.6'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
+
+    //gpay dependency
+    implementation 'com.google.android.gms:play-services-wallet:19.1.0'
+//for payment gateway  upi
+    implementation 'dev.shreyaspatil.EasyUpiPayment:EasyUpiPayment:3.0.3'
+
+}
