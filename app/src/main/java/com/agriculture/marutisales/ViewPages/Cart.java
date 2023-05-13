@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agriculture.marutisales.Adapters.Cart_Adapter;
 import com.agriculture.marutisales.Adapters.Product_View_Adapter;
+import com.agriculture.marutisales.ModalClasses.Base_Class;
 import com.agriculture.marutisales.ModalClasses.Cart_class;
 import com.agriculture.marutisales.ModalClasses.Product_View_class;
 import com.agriculture.marutisales.R;
@@ -32,8 +34,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Handler;
 
-public class Cart extends AppCompatActivity {
+public class Cart extends Base_Class {
 
     FirebaseDatabase fd;
     double total_price;
@@ -43,6 +46,8 @@ public class Cart extends AppCompatActivity {
     ArrayList<Cart_class> list;
     static RecyclerView rv;
     static Cart_Adapter recycleradap;
+    private boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,8 @@ public class Cart extends AppCompatActivity {
         fd=FirebaseDatabase.getInstance();
         dr= fd.getReference("Cart");
         rv.setLayoutManager(new LinearLayoutManager(this));
+
+
 
         //search for this email in the users
 
@@ -105,7 +112,19 @@ dr.child(get_phone).addValueEventListener(new ValueEventListener() {
     }
 });
 
+
     }
+//    @Override
+//    public void onBackPressed() {
+//        if (doubleBackToExitPressedOnce) {
+//            // Close the application
+//            finishAffinity();
+//            System.exit(0);
+//        } else {
+//            // Go to previous activity
+//            super.onBackPressed();
+//        }
+//    }
 
 
 }

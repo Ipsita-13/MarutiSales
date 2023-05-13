@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.agriculture.marutisales.Fragments.Login;
 import com.agriculture.marutisales.Fragments.Register;
+import com.agriculture.marutisales.ModalClasses.Twice_BackPress;
 import com.agriculture.marutisales.ViewPages.Cart;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

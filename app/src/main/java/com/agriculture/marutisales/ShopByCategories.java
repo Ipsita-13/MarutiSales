@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.agriculture.marutisales.Adapters.SBC_Adapter;
 import com.agriculture.marutisales.ModalClasses.SBC_class;
+import com.agriculture.marutisales.ModalClasses.Twice_BackPress;
 import com.agriculture.marutisales.ViewPages.Account;
 import com.agriculture.marutisales.ViewPages.Cart;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ShopByCategories extends AppCompatActivity {
+public class ShopByCategories extends Twice_BackPress {
 FirebaseDatabase fd;
 DatabaseReference dr;
 LinearLayout cart,account;
