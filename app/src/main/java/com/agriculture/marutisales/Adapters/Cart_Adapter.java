@@ -80,10 +80,12 @@ public class Cart_Adapter extends RecyclerView.Adapter<Cart_Adapter.viewHolder> 
                            Log.d("key of the clicked value",snap.getKey());
                            //snap.getRef().removeValue();
                            cartRef.child(snap.getKey()).removeValue();
-                           Intent i=new Intent(context,Cart.class);
-                           i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                           context.startActivity(i);
+
+//                           Intent i=new Intent(context,Cart.class);
+//                           i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                           context.startActivity(i);
                        }
+                       break;
                    }
                }
 
