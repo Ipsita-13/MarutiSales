@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,17 +40,20 @@ public class Cart extends AppCompatActivity {
     FirebaseDatabase fd;
     double total_price;
     TextView total;
+    double cart_total=0;
     DatabaseReference dr;
     String clicked="False";
     ArrayList<Cart_class> list;
+    Button order_all;
     static RecyclerView rv;
     static Cart_Adapter recycleradap;
+    Map<Integer,Double> map=new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         rv=findViewById(R.id.arrangement);
-
+        order_all=findViewById(R.id.place_order);
         SharedPreferences sp= getSharedPreferences("Login", Context.MODE_PRIVATE);
         SharedPreferences mp=getSharedPreferences("cart_detail",MODE_PRIVATE);
         String email=sp.getString("email","");
@@ -64,12 +69,12 @@ Log.d("clicked",clicke);
 
         show_products_in_cart();
 
-
-
-
-
-
-
+order_all.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Log.d("cart_total",String.valueOf(cart_total));
+    }
+});
 
     }
 
@@ -80,12 +85,15 @@ dr.child(get_phone).addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
         list=new ArrayList<>();
+        int i=0;
         for (DataSnapshot snap:snapshot.getChildren())
         {
             String key=snap.getKey();
             Log.d("children",key);
             Cart_class cc=new Cart_class();
             Log.d("name",snap.child("name").getValue().toString());
+
+      cart_total=cart_total+Double.parseDouble(snap.child("price").getValue().toString());
             cc.setImage(snap.child("image").getValue().toString());
             cc.setName(snap.child("name").getValue().toString());
             cc.setPrice(snap.child("price").getValue().toString());

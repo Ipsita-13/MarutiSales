@@ -38,6 +38,7 @@ public class Product_View_Adapter extends RecyclerView.Adapter<Product_View_Adap
     ArrayList<Product_View_class> list;
     Context context;
 DatabaseReference dr;
+    boolean already_present=false;
     public Product_View_Adapter(ArrayList<Product_View_class> list, Context context) {
         this.list = list;
         this.context = context;
@@ -54,6 +55,7 @@ DatabaseReference dr;
 
     @Override
     public void onBindViewHolder(@NonNull Product_View_Adapter.viewHolder holder, int position) {
+
         Product_View_class pvc=list.get(position);
         Glide.with(context).load(list.get(position).getImage())
                 .into(holder.image);
@@ -77,6 +79,7 @@ DatabaseReference dr;
         holder.add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 // TODO: 12-04-2023 collect the details from here
                 SharedPreferences sharedPreferences=context.getSharedPreferences("cart_detail", MODE_PRIVATE);
                 SharedPreferences.Editor details=sharedPreferences.edit();
@@ -87,8 +90,51 @@ DatabaseReference dr;
                 details.commit();
                 SharedPreferences sp= context.getSharedPreferences("Login", Context.MODE_PRIVATE);
                 String email=sp.getString("email","");
-                Toast.makeText(context, "Added", Toast.LENGTH_SHORT).show();
-                search_email(email);
+
+
+
+                // TODO: 22-05-2023  check the value exits or not in database of cart
+                SharedPreferences sphone = context.getSharedPreferences("Phonenumber", MODE_PRIVATE);
+                String get_phone = sphone.getString("phone", "");
+//                FirebaseDatabase.getInstance().getReference().child("Cart").child(get_phone)
+//                        .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        SharedPreferences sharedPreferences=context.getSharedPreferences("cart_detail", MODE_PRIVATE);
+//                       String get_item=sharedPreferences.getString("name","");
+//                       //searching for the name already present or not
+//                        for (DataSnapshot snap: snapshot.getChildren()) {
+//                            String added = snap.child("name").getValue().toString();
+//                            Log.d("already added ", added);
+//                            Log.d("already added", "line ---------");
+//
+//                            if (get_item.equals(added)) {
+//                                Log.d("nametrue", added + " " + get_item);
+//                                already_present = true;
+//                                Toast.makeText(context, "Already added", Toast.LENGTH_SHORT).show();
+//                                break;
+//                            }
+//
+//
+//
+//                        }
+//
+//                    //after the data is being added again on data change is called
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//
+//        Log.d("already present",String.valueOf(already_present));
+//                if(already_present)
+//                {
+                    Toast.makeText(context, "Added", Toast.LENGTH_SHORT).show();
+                    search_email(email);
+
+
             }
         });
     }
@@ -152,6 +198,7 @@ DatabaseReference dr;
         map.put("name", sharedPreferences.getString("name", ""));
         map.put("price", sharedPreferences.getString("price", ""));
         map.put("image", sharedPreferences.getString("image", ""));
+
         FirebaseDatabase.getInstance().getReference("Cart").child(phone_number)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -173,6 +220,7 @@ DatabaseReference dr;
 
                     }
                 });
+
 
     }
 

@@ -23,7 +23,7 @@
             android:id="@+id/place_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_marginStart="190dp"
+           android:layout_marginStart="240dp"
             android:text="Place Order"
             android:textColor="@color/black"
             android:backgroundTint="#FF9800"/>

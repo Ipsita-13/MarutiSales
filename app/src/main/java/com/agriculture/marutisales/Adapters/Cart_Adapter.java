@@ -21,6 +21,7 @@ import com.agriculture.marutisales.ModalClasses.Cart_class;
 import com.agriculture.marutisales.ModalClasses.Product_View_class;
 import com.agriculture.marutisales.R;
 import com.agriculture.marutisales.ViewPages.Cart;
+import com.agriculture.marutisales.ViewPages.Order_From_cart;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +55,27 @@ public class Cart_Adapter extends RecyclerView.Adapter<Cart_Adapter.viewHolder> 
         holder.name.setText(pvc.getName());
         holder.price.setText(pvc.getPrice());
 
+
+holder.buy_this.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        SharedPreferences sphone = context.getSharedPreferences("BuyFromCart", MODE_PRIVATE);
+        SharedPreferences.Editor se= sphone.edit();
+
+        String name_item=holder.name.getText().toString();
+        String price_item=holder.price.getText().toString();
+        se.putString("name",name_item);
+        se.putString("price",price_item);
+
+        se.commit();
+        Intent i=new Intent(context, Order_From_cart.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);
+        Log.d("name_item",name_item);
+
+    }
+});
         holder.remove_item.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -109,12 +131,14 @@ public class Cart_Adapter extends RecyclerView.Adapter<Cart_Adapter.viewHolder> 
         ImageView image;
         TextView price,name;
         Button remove_item;
+        Button buy_this;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             image=itemView.findViewById(R.id.image);
             name=itemView.findViewById(R.id.name);
             price=itemView.findViewById(R.id.price);
             remove_item=itemView.findViewById(R.id.remove);
+            buy_this=itemView.findViewById(R.id.buy_this);
         }
     }
 }
